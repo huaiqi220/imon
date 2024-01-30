@@ -249,6 +249,7 @@ def aggregate_region_data(path='./', des_path='./'):
     # Apple face and eye region
     # subjectID, frameID, face(x,y,w,h,valid), left_eye(), right_eye(), face_grid(x,y,w,h,valid)
     faceRegions = np.zeros((2500000, 22), dtype=np.float32)
+    # dirs = [d for d in glob.glob(path + "/*/", recursive=True)]
     dirs = [d for d in glob.glob(path + "/*/", recursive=True)]
     count = 0
 
@@ -308,7 +309,7 @@ def aggregate_screen_data(path='./', des_path='./'):
     screenInfo = np.empty((1, 3), dtype=np.float32)
     for subjectID in subjectID_list:
         #         print('subjectID',subjectID)
-        screen_path = path + '{:0>5d}'.format(int(subjectID)) + '/screen.json'
+        screen_path = path +'/'+ '{:0>5d}'.format(int(subjectID)) + '/screen.json'
 
         with open(screen_path) as json_file:
             data = json.load(json_file)
@@ -317,3 +318,31 @@ def aggregate_screen_data(path='./', des_path='./'):
 
     faceRegions = np.hstack((faceRegions, screenInfo))
     np.save(des_path+'regions_ori.npy', faceRegions)
+
+
+
+
+if __name__ == "__main__":
+    # aggregate_meta_data("/data/4_gc/1_gco","/data/4_gc/3_gcsage/")
+    # aggregate_dot_data("/data/4_gc/1_gco","/data/4_gc/3_gcsage/")
+    # aggregate_region_data("/data/4_gc/1_gco","/data/4_gc/3_gcsage/")
+    # aggregate_screen_data("/data/4_gc/1_gco","/data/4_gc/3_gcsage/")
+    dots, regions, df_info  = load_meta_data("/data/4_gc/3_gcsage/")
+    print(regions.size)
+    print(regions.shape)
+    print(regions[:5])
+    '''
+    31804625
+(1272185, 25)
+[[477   0 320 320  86 238   1  96  96 160  43   1  96  96  54  43   1   7
+    9  13  13   1 568 320   1]
+ [477   1 320 320  86 238   1  96  96 160  38   1  96  96  54  38   1   7
+    9  13  13   1 568 320   1]
+ [477   2 320 320  86 238   1  96  96 165  48   1  96  96  54  43   1   7
+    9  13  13   1 568 320   1]
+ [477   3 320 320  86 238   1  96  96 160  38   1  96  96  54  38   1   7
+    9  13  13   1 568 320   1]
+ [477   4 320 320  86 238   1  96  96 160  43   1  96  96  50  38   1   7
+    9  13  13   1 568 320   1]]
+    
+    '''

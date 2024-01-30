@@ -1,10 +1,10 @@
 ''' utility functions to load image and label data
     to feed into model'''
 import config
-import numpy as np
+# import numpy as np
 from math import exp, sqrt, pi
-import tensorflow as tf
-from tensorflow.image import convert_image_dtype, resize, pad_to_bounding_box
+# import tensorflow as tf
+# from tensorflow.image import convert_image_dtype, resize, pad_to_bounding_box
 
 
 def get_frame_path(subjectID, frameID):

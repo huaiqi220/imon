@@ -8,7 +8,7 @@ test = False
 
 '''Data params'''
 mobile = True
-regions = 'fan'  # 'fan': improved pre-processing /'default': GazeCapture pre-processing
+regions = 'default'  # 'fan': improved pre-processing /'default': GazeCapture pre-processing
 enhanced = False
 
 '''Model params'''
