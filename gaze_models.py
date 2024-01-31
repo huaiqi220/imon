@@ -127,12 +127,14 @@ def get_SAGE(base_model='MobileNetV2', heatmap=False):
         merge = BatchNormalization(name='bn_hm_merge_dense1')(merge)
         merge = merge_dense2(merge)
         merge = BatchNormalization(name='bn_hm_merge_dense2')(merge)
+
         heatmap_dense = Dense(int(config.hm_size**2/4),
                               activation='relu', name='heatmap_dense')
         merge = heatmap_dense(merge)
         merge = BatchNormalization(name='bn_hm_dense')(merge)
         heatmap = Reshape(target_shape=(
             int(config.hm_size/2), int(config.hm_size/2), 1))(merge)
+        
         heatmap = conv_bn(heatmap, heatmap_conv1)
         heatmap = UpSampling2D()(heatmap)
         heatmap = heatmap_conv2(heatmap)
