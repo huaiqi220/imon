@@ -66,13 +66,14 @@ def make_tf_dataset(dots, regions, shuffle=False):
     for i in range(len(shuffled_dots)):
         region = shuffled_regions[i, :].astype(int)
         filenames.append(decode_utils.get_frame_path(region[0], region[1]))
-
+    # print(filenames)   
     list_ds = tf.data.Dataset.from_tensor_slices(
         (filenames, shuffled_dots[:, -3:-1], shuffled_regions))
     if config.enhanced:
         ds = list_ds.map(process_path_enhanced, num_parallel_calls=AUTOTUNE)
     else:
         ds = list_ds.map(process_path, num_parallel_calls=AUTOTUNE)
+    print(ds)
     return ds
 
 
@@ -368,7 +369,8 @@ def main():
                                                  dataset_len=len(dots_train))
         model.fit(train_generator, steps_per_epoch=config.steps_per_epoch,
                   epochs=config.epochs, verbose=1)
-
+        # model.fit(ds_train, steps_per_epoch=config.steps_per_epoch,
+        #           epochs=config.epochs, verbose=1)
         if config.mobile & ((i % 3 != 0) | (i < 0)):
             continue
 

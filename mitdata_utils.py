@@ -6,7 +6,7 @@ import cv2
 import glob
 import tarfile
 from PIL import Image
-# from matplotlib import pyplot as plt
+from matplotlib import pyplot as plt
 from decode_utils import get_frame_path
 import config
 

@@ -1,6 +1,6 @@
 import os
 
-path = os.path.expanduser('PATH_T0_GAZECAPTURE_DATASET')
+path = os.path.expanduser('/data/4_gc/3_gcsage/')
 enhanced_path = os.path.expanduser('PATH_TO_ENHANCED_DATASET')
 
 '''Train/Test'''
