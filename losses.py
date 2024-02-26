@@ -156,7 +156,7 @@ def get_heatmap_filter_mask(frameID, df_pred_scopes, df_info_test, regions_test)
             Each (device_name, orientation) has a unique mask
     '''
 
-    from tabulate import tabulate
+    # from tabulate import tabulate
     # Define mask based on the scope
     device_name = df_info_test.loc[df_info_test['subjectID'] == frameID[0], 'DeviceName'].iloc[0]
     orientation = regions_test[(regions_test[:, 0] == frameID[0]) &

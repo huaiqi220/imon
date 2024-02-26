@@ -172,6 +172,7 @@ def resize(dir_path, size):
     file_list = os.listdir(origin_path)
     for f in file_list[:]:
         file_path = origin_path + '/' + f
+        print(file_path)
         im = np.array(Image.open(file_path), dtype=np.uint8)
         crappified_im = (cv2.resize(im, dsize=(64, 64), interpolation=cv2.INTER_CUBIC)).astype(np.uint8)
         for tmp_im, prefix in [(im, ''), (crappified_im, 'crappified_')]:
@@ -298,11 +299,12 @@ def get_lr_metric(optimizer):
 
 def main():
     print('---SUPERRES---')
-    path = 'PATH_TO_CELEB_DATASET'
+    path = '/data/8_FFHQ'
     im_size = 112
-    crappify(path, im_size)
+    # crappify(path, im_size)
     # return 0
-    # resize(path, im_size)
+    resize(path, im_size)
+    return 0
     strategy = tf.distribute.MirroredStrategy()  # multiple gpus
     print('Number of devices: {}'.format(strategy.num_replicas_in_sync))
     # learning rate
@@ -397,16 +399,16 @@ def test():
         # break
 
 
-def save_model():
-    import coremltools
-    im_size = 224
-    model = get_model((im_size,im_size), 3, dropout=True, link=True)
-    model_input = coremltools.converters.ImageType('input', shape=(1,im_size,im_size,3))
-    coreml_model = coremltools.converters.convert(model, source='tensorflow', inputs=[model_input])
-    coreml_model.save('/model/coreml/COREML_MODEL.mlmodel')
+# def save_model():
+#     import coremltools
+#     im_size = 224
+#     model = get_model((im_size,im_size), 3, dropout=True, link=True)
+#     model_input = coremltools.converters.ImageType('input', shape=(1,im_size,im_size,3))
+#     coreml_model = coremltools.converters.convert(model, source='tensorflow', inputs=[model_input])
+#     coreml_model.save('/model/coreml/COREML_MODEL.mlmodel')
 
 
 if __name__ == '__main__':
-    # main()
+    main()
     # test()
-    save_model()
+    # save_model()

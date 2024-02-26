@@ -73,7 +73,6 @@ def make_tf_dataset(dots, regions, shuffle=False):
         ds = list_ds.map(process_path_enhanced, num_parallel_calls=AUTOTUNE)
     else:
         ds = list_ds.map(process_path, num_parallel_calls=AUTOTUNE)
-    print(ds)
     return ds
 
 

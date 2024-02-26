@@ -1,10 +1,10 @@
 import os
 
 path = os.path.expanduser('/data/4_gc/3_gcsage/')
-enhanced_path = os.path.expanduser('PATH_TO_ENHANCED_DATASET')
+enhanced_path = os.path.expanduser('/data/8_FFHQ/')
 
 '''Train/Test'''
-test = False
+test = True
 
 '''Data params'''
 mobile = True
@@ -15,8 +15,10 @@ enhanced = False
 arc = 'SAGE'  # 'SAGE', 'iTracker'
 base_model = 'MobileNetV2' # 'AlexNet', 'MobileNetV2', 'EfficientNetB3'
 weights = None
-pretrained_path = path + 'model/heatmap/' + base_model + '/'
-pretrained_model = None  # pretrained_path + 'MODEL.hdf5'
+# pretrained_path = path + 'model/heatmap/' + base_model + '/'
+pretrained_path = path + 'model/euclidean/' + base_model + '/'
+# pretrained_model = None  # pretrained_path + 'MODEL.hdf5'
+pretrained_model = pretrained_path  + "SAGE_MobileNetV2_scratch_m_112_112_3_default_1.8848_round90_64x1000x1.hdf5"
 current_lr = 0.001
 current_best_val_loss = 2
 current_training_round = 0
