@@ -279,8 +279,8 @@ def get_file_list(path, im_size, no_val_samples=128):
     input_paths = []
     label_paths = []
     for f in file_list:
-        # input_paths.append(crappified_path + 'crappified_' + f)
-        input_paths.append(crappified_path + f)
+        input_paths.append(crappified_path + 'crappified_' + f)
+        # input_paths.append(crappified_path + f)
         label_paths.append(des_path + f)
 
     train_input_paths = input_paths[:-no_val_samples]
@@ -303,8 +303,8 @@ def main():
     im_size = 112
     # crappify(path, im_size)
     # return 0
-    resize(path, im_size)
-    return 0
+    # resize(path, im_size)
+    # return 0
     strategy = tf.distribute.MirroredStrategy()  # multiple gpus
     print('Number of devices: {}'.format(strategy.num_replicas_in_sync))
     # learning rate
@@ -324,7 +324,7 @@ def main():
 
     batch_size = 32
     train_inputs, train_labels, val_inputs, val_labels = get_file_list(path, im_size)
-    test_path = 'PATH_TO_TEST_IMAGES' + str(im_size) + '/'
+    test_path = '/data/8_FFHQ/test/' + str(im_size) + '/'
     test_inputs = [test_path + f for f in os.listdir(test_path)]
     print('train size:', len(train_inputs), ' val size:', len(val_inputs))
     val_input_ims = load_data(val_inputs, im_size)
@@ -337,7 +337,9 @@ def main():
         train_ds = make_tf_dataset(train_inputs, train_labels)
         train_generator = generator.TFDataFeeder(train_ds, batch_size=batch_size,
                                                  dataset_len=len(train_inputs))
-        model.fit(train_generator.reset(), steps_per_epoch=200, epochs=1)
+        train_ds_batched = train_ds.batch(batch_size)
+        model.fit(train_ds_batched, steps_per_epoch=len(train_inputs) // batch_size, epochs=1)
+        # model.fit(train_generator.reset(), steps_per_epoch=200, epochs=1)
         val_loss = model.evaluate(x=val_input_ims, y=val_label_ims, verbose=1)
         if (val_loss[0] < best_val_loss):
             best_val_loss = val_loss[0]
@@ -366,8 +368,8 @@ def main():
 
 
 def test():
-    im_size = 224
-    test_path = 'PATH_TO_TEST_IMAGE'
+    im_size = 112
+    test_path = '/data/8_FFHQ/test/crappified_112/'
     test_inputs = [test_path + f for f in os.listdir(test_path)]
     # load model
 
@@ -394,6 +396,7 @@ def test():
             test_pred = test_preds[i, :, :, :][:, :, [2, 1, 0]]*255
             # origin = test_input_ims[i, :, :, :][:, :, [2, 1, 0]]
             # combined_im = np.concatenate([origin, test_pred], axis=1)*255
+            print(frameID)
             cv2.imwrite(frameID, test_pred)
         current_idx += batch_size
         # break
@@ -409,6 +412,6 @@ def test():
 
 
 if __name__ == '__main__':
-    main()
-    # test()
+    # main()
+    test()
     # save_model()
