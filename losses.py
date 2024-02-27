@@ -14,6 +14,8 @@ def heatmap_loss(y_true, y_pred):
     if (K.sum(y_pred) == 0):
         return 1.0
     else:
+        print(y_true.shape)
+        print(y_pred.shape)
         y_pred /= K.sum(y_pred)
         y_true /= K.sum(y_true)
         return K.sum(K.abs(y_pred - y_true))/2

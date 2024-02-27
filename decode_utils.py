@@ -52,7 +52,6 @@ def decode_img(img, region, label):
     '''Normalize'''
     # leye_im = tf.image.per_image_standardization(leye_im)
     # reye_im = tf.image.per_image_standardization(reye_im)
-
     orientation = tf.cast(tf.one_hot(region[24], depth=3), precision_type)
 
     if (config.arc == 'iTracker'):
@@ -92,6 +91,7 @@ def decode_img(img, region, label):
         label = heatmap_im
 
     if (config.arc == 'SAGE'):
+        
         return (orientation, eyelandmark, leye_im, reye_im, label)
     else:
         return (orientation, face_grid_im, face_im, leye_im, reye_im, label)

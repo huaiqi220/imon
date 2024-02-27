@@ -322,27 +322,12 @@ def aggregate_screen_data(path='./', des_path='./'):
 
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # aggregate_meta_data("/data/4_gc/1_gco","/data/4_gc/3_gcsage/")
     # aggregate_dot_data("/data/4_gc/1_gco","/data/4_gc/3_gcsage/")
     # aggregate_region_data("/data/4_gc/1_gco","/data/4_gc/3_gcsage/")
     # aggregate_screen_data("/data/4_gc/1_gco","/data/4_gc/3_gcsage/")
-    dots, regions, df_info  = load_meta_data("/data/4_gc/3_gcsage/")
-    print(regions.size)
-    print(regions.shape)
-    print(regions[:5])
-    '''
-    31804625
-(1272185, 25)
-[[477   0 320 320  86 238   1  96  96 160  43   1  96  96  54  43   1   7
-    9  13  13   1 568 320   1]
- [477   1 320 320  86 238   1  96  96 160  38   1  96  96  54  38   1   7
-    9  13  13   1 568 320   1]
- [477   2 320 320  86 238   1  96  96 165  48   1  96  96  54  43   1   7
-    9  13  13   1 568 320   1]
- [477   3 320 320  86 238   1  96  96 160  38   1  96  96  54  38   1   7
-    9  13  13   1 568 320   1]
- [477   4 320 320  86 238   1  96  96 160  43   1  96  96  50  38   1   7
-    9  13  13   1 568 320   1]]
-    
-    '''
+    # dots, regions, df_info  = load_meta_data("/data/4_gc/3_gcsage/")
+    # print(regions.size)
+    # print(regions.shape)
+    # print(regions[:5])

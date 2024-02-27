@@ -305,6 +305,7 @@ def main():
     dots_val, regions_val, df_info_val = dataset_dict['test']
     print('train data:', dots_train.shape, regions_train.shape, df_info_train.shape)
     print('val data:', dots_val.shape, regions_val.shape, df_info_val.shape)
+   
     '''LOAD MODEL'''
     base_model = config.base_model
     mobile_str = 'm' if config.mobile else 't'
